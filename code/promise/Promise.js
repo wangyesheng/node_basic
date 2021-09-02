@@ -61,6 +61,7 @@ class Promise {
 
         const resolve = (value) => {
             if (value instanceof Promise) {
+                // 如果 resolve 的是一个 promise 那就让这个 promise.then 取得这个 promise 执行器里的 value 或者 reason，再传给初始的 resolve 或者 reject 
                 return value.then(resolve, reject)
             }
             if (this.status == PENDING) {

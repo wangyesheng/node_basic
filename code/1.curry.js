@@ -30,4 +30,15 @@ let newFn = after(3, () => {
 
 newFn();
 newFn();
-newFn();    
+newFn();
+
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject(1000)
+    }, 3000);
+})
+Promise.reject(p).then(value => {
+    console.log('s:', value)
+}, err => {
+    console.log('e:', err)
+})
