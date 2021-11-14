@@ -248,3 +248,26 @@ async function finallyDeep(dir) {
 finallyDeep('a').then(() => {
     console.log('删除成功')
 })
+
+
+const fs = require('fs')
+const path = require('path')
+
+function wideDeep(dir) {
+    let dirs = [dir],
+        index = 0,
+        current
+
+    while (current = dirs[index++]) {
+        const files = fs.readdirSync(current).map(file => path.join(current, file))
+        dirs = [...dirs, ...files]
+    }
+
+    for (let i = dirs.length - 1; i >= 0; i--) {
+        const data = fs.rmdirSync(dirs[i])
+        console.log(data) // undefined
+    }
+}
+
+
+wideDeep('a')
